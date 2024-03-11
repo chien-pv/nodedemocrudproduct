@@ -1,7 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const multer = require("multer");
+
 const app = express();
 const port = 3000;
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -17,7 +30,7 @@ let products = [
     id: 1,
     name: "Iphone",
     des: "Iphone 12",
-    image: "/images/img-worlds-of-adventure.jpeg",
+    image: "/images/4d2e0c663bc69741e82b6ede5148e73e",
   },
   {
     id: 2,
@@ -35,6 +48,24 @@ let products = [
 
 app.get("/", (req, res) => {
   res.render("index", { products });
+});
+
+app.get("/new", (req, res) => {
+  res.render("new");
+});
+
+app.post("/create", upload.single("image"), (req, res) => {
+  let { name, des } = req.body;
+  let product = {
+    id: 23232,
+    name,
+    des,
+    image: `/images/${req.file.filename}`,
+  };
+  products = [...products, product];
+
+  //   console.log(req.file.filename);
+  res.redirect("/");
 });
 
 app.listen(port, () => {
