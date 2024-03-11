@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link rel="stylesheet" href="/js/bootstrap.js">
+
+        <title>Document</title>
+    </head>
+    <body class="container">
+        <h1>Management Users</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Des</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(function(pro){ %>
+                <tr>
+                    <th scope="row"><%= pro.id%></th>
+                    <td><%= pro.name%></td>
+                    <td><%= pro.des%></td>
+                    <td>
+                        <img style="width: 100px;" src="<%= pro.image %>" alt>
+                    </td>
+                    <td>
+                        <button type="button"
+                            class="btn btn-success">Edit</button>
+                        <button type="button"
+                            class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </body>
+</html>
